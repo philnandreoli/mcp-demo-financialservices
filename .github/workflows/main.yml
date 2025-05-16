@@ -42,5 +42,5 @@ jobs:
       with:
         azcliversion: latest
         inlineScript: |
-          cd ${{ matrix.directory}} && az acr build -r ${{ secrets.AZURE_CONTAINER_REGIStRY }} -t financial-advisor/langchain/${{ matrix.container_name }}:${{ github.sha }} --file Dockerfile .
+          cd ${{ matrix.directory}} && az acr build -r ${{ secrets.AZURE_CONTAINER_REGIStRY }} -t mcp-demo/${{ matrix.container_name }}:${{ github.sha }} --file Dockerfile .
         
