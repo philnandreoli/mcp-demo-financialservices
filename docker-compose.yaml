@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  weathermcp:
+    build:
+      context: mcp-weather/src
+      dockerfile: DOCKERFILE
+    container_name: mcp-weather
+    image: mcp-weather:${TAG:-latest}
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    environment:
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
+  stocksmcp:
+    build:
+      context: mcp-stocks/src
+      dockerfile: DOCKERFILE
+    container_name: mcp-stocks
+    image: mcp-stocks:${TAG:-latest}
+    ports:
+      - 8081:8080
+    env_file:
+      - .env
+    environment:
+      - POLYGON_BASE_URL=${POLYGON_BASE_URL}
+      - POLYGON_API_KEY=${POLYGON_API_KEY}
