@@ -43,4 +43,36 @@ jobs:
         azcliversion: latest
         inlineScript: |
           cd ${{ matrix.directory}} && az acr build -r ${{ secrets.AZURE_CONTAINER_REGISTRY }} -t mcp-demo/${{ matrix.container_name }}:${{ github.sha }} --file DOCKERFILE .
-        
+  
+  development-deployment:
+    environment: DEVELOPMENT
+    runs-on: ubuntu-latest
+    needs: development-build
+    steps:
+      - name: Azure CLI Login
+        uses: Azure/login@v2.2.0
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Azure CLI Script
+        uses: Azure/cli@v2.1.0
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+      
+      - name: Deploy MCP Stocks to Azure Container App
+        uses: Azure/cli@v2.1.0
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az containerapp revision copy -n  ${{ secrets.MCP_STOCKS_RESOURCE_NAME }} -g ${{ secrets.MCP_RESOURCE_GROUP_NAME }} -i ${{ secrets.AZURE_CONTAINER_REGIStRY }}.azurecr.io/mcp-demo/mcp-stocks:${{ github.sha }}
+      
+      - name: Deploy MCP Weather to Azure Container App
+        uses: Azure/cli@v2.1.0
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az containerapp revision copy -n  ${{ secrets.MCP_WEATHER_RESOURCE_NAME }} -g ${{ secrets.MCP_RESOURCE_GROUP_NAME }} -i ${{ secrets.AZURE_CONTAINER_REGIStRY }}.azurecr.io/mcp-demo/mcp-weather:${{ github.sha }}
