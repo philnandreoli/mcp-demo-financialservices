@@ -8,7 +8,6 @@ from typing import Optional, List
 import uvicorn
 import yfinance as yf
 from models.stock_technical_indicators import StockTechnicalIndicators
-import pandas_ta as ta 
 import numpy as np
 from datetime import datetime, timedelta
 import pytz
