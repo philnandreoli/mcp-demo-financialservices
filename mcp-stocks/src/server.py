@@ -1,5 +1,6 @@
 import os 
 import pandas as pd
+import pandas_ta as ta
 import requests
 import multiprocessing
 from mcp.server.fastmcp import FastMCP
@@ -9,6 +10,7 @@ import uvicorn
 import yfinance as yf
 from models.stock_technical_indicators import StockTechnicalIndicators
 import numpy as np
+from numpy import nan
 from datetime import datetime, timedelta
 import pytz
 
