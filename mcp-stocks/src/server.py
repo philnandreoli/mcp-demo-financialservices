@@ -23,7 +23,7 @@ mcp = FastMCP(name="Stock Information MCP Server")
 app = mcp.sse_app()
 
 
-@mcp.tool(name="Get Stock Information", description="Get stock information for a givent stock symbol")
+@mcp.tool(name="get-stock-information", description="Get stock information for a givent stock symbol")
 def get_stock_information(ticker: str) -> dict:
     """
     Useful for getting the stock information for a given stock symbol
@@ -35,7 +35,7 @@ def get_stock_information(ticker: str) -> dict:
 
     return stock_info
 
-@mcp.tool(name="Get Stock Financials", description="Get stock financials for a given ticker symbol and filing date if it is provided")
+@mcp.tool(name="get-stock-financials", description="Get stock financials for a given ticker symbol and filing date if it is provided")
 def get_stock_financials(ticker: str, filing_date: Optional[str]) -> dict:
     """
     Useful for getting the stock financials for a given stock symbol
@@ -57,7 +57,7 @@ def get_stock_financials(ticker: str, filing_date: Optional[str]) -> dict:
     
     return response.json()
 
-@mcp.tool(name="Get Stock News", description="Get news for a given stock symbol")
+@mcp.tool(name="get-stock-news", description="Get news for a given stock symbol")
 def get_stock_news(ticker: str) -> dict:
     """
     Useful for getting the news for a given stock symbol
@@ -76,7 +76,7 @@ def get_stock_news(ticker: str) -> dict:
     
     return response.json()
 
-@mcp.tool(name="Get Stock Technical Indicators over Time", description="Get technical indicators for a given stock symbol")
+@mcp.tool(name="get-stock-technical-indicators", description="Get technical indicators for a given stock symbol")
 def get_stock_technical_indicators(ticker: str) -> List[StockTechnicalIndicators]:
     """
     Used for getting the technical indicators and historical data for a stock symbol.
