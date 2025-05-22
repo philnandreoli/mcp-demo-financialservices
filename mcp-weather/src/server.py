@@ -11,6 +11,14 @@ API_KEY = os.getenv("OPENWEATHER_API_KEY")
 mcp = FastMCP(name="Weather MCP Server")
 app = mcp.sse_app()
 
+@mcp.prompt(name="weather_prompt", description="Prompt for weather information")
+def weather_prompt(location: str) -> str:
+    """
+    Prompt for weather information
+    """
+    return f"Get the current weather for {location}."
+
+
 @mcp.tool(name="get_weather", description="Get weather information for a given location. The city, state and country, formatted like '<city>, <state>, <two letter country>'")
 def get_weather(location: str) -> dict:
     """
